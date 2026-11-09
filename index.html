@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BBB: Build Beautiful Body</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F2FF;--surface:#fff;--ink:#1E1B3A;--muted:#6A6786;--line:#E4DEF7;--acc:#6C4DF6;--acc-ink:#fff;--acc2:#FF6B4A;--ok:#12B886;--fig:#3B2D9C;--pic:#EFEAFF;--warn:#FFF1D6;--warn-ink:#6B4A00;--g:linear-gradient(135deg,#6C4DF6,#FF6B4A);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1A1535;--surface:#261F4D;--ink:#F3F0FF;--muted:#A9A3CC;--line:#3A3270;--acc:#8F78FF;--acc-ink:#120C33;--acc2:#FF8566;--ok:#3DDBA9;--fig:#CFC6FF;--pic:#2F2760;--warn:#4A3B15;--warn-ink:#FFE2A0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1A1535;--surface:#261F4D;--ink:#F3F0FF;--muted:#A9A3CC;--line:#3A3270;--acc:#8F78FF;--acc-ink:#120C33;--acc2:#FF8566;--ok:#3DDBA9;--fig:#CFC6FF;--pic:#2F2760;--warn:#4A3B15;--warn-ink:#FFE2A0;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.5 Barlow,system-ui,sans-serif}
+main{max-width:680px;margin:0 auto;padding:16px 16px 160px}
+h2{font:700 34px/1 "Barlow Condensed","Arial Narrow",sans-serif;margin:0 0 4px}
+.hero{display:flex;align-items:center;gap:14px;background:var(--g);color:#fff;border-radius:24px;padding:16px 18px;margin-bottom:16px;box-shadow:0 10px 28px rgba(108,77,246,.28)}
+.logo{font:700 44px/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.03em;background:rgba(255,255,255,.22);border-radius:16px;padding:10px 14px}
+.hero h1{font:700 30px/1.05 "Barlow Condensed","Arial Narrow",sans-serif;margin:0}
+.hero p{margin:4px 0 0;font-size:15px;opacity:.95}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px}
+.days button{flex:1 0 auto;min-width:50px;padding:10px 0;border:0;border-radius:14px;background:var(--surface);color:var(--ink);font:600 19px "Barlow Condensed","Arial Narrow",sans-serif;cursor:pointer;box-shadow:0 1px 0 var(--line)}
+.rest{color:var(--muted)!important}
+[aria-selected=true]{background:var(--g)!important;color:#fff!important}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line)}
+.tabs button{flex:1;padding:12px 6px;border:0;border-radius:14px;background:transparent;color:var(--muted);font:600 20px "Barlow Condensed","Arial Narrow",sans-serif;cursor:pointer}
+.bar{height:10px;background:var(--line);border-radius:6px;margin:12px 0 18px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--g);border-radius:6px;transition:width .25s}
+.trk .bar{margin:6px 0 12px}
+.ex,.note{background:var(--surface);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(60,40,140,.08)}
+.note{border:1.5px dashed var(--line);box-shadow:none}
+.pic{margin:-16px -16px 12px;background:var(--pic);padding:10px}
+.pic svg{display:block;width:100%;max-width:340px;height:auto;margin:0 auto}
+.bd{stroke:var(--fig);stroke-width:6}.fl{stroke:var(--line);stroke-width:3}.hd{fill:var(--fig)}.eq{stroke:var(--acc2);stroke-width:7}.fx{stroke:var(--muted);stroke-width:4}.ar{stroke:var(--acc);stroke-width:3.5}.pt{fill:var(--acc2);stroke:none}
+.ex h3{font:700 25px/1.1 "Barlow Condensed","Arial Narrow",sans-serif;margin:0}
+.ex p{margin:6px 0 12px;color:var(--muted);font-size:15px}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--pic);color:var(--acc);font-weight:500;margin-right:6px}
+.warn{background:var(--warn);color:var(--warn-ink);border-radius:16px;padding:12px 16px;margin-bottom:14px;font-size:15px}
+.sets{display:flex;gap:8px;flex-wrap:wrap}
+.sets button{width:52px;height:52px;border-radius:50%;border:2px solid var(--acc);background:transparent;color:var(--acc);font:700 21px "Barlow Condensed",sans-serif;cursor:pointer}
+.eat{width:100%;padding:12px;border-radius:14px;border:2px solid var(--acc);background:transparent;color:var(--acc);font:600 17px Barlow,sans-serif;cursor:pointer}
+[aria-pressed=true]{background:var(--ok)!important;border-color:var(--ok)!important;color:#fff!important}
+.row{display:flex;gap:8px;margin:10px 0}
+input{flex:1;min-width:0;padding:12px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.go{padding:12px 18px;border:0;border-radius:12px;background:var(--g);color:#fff;font:600 17px Barlow,sans-serif;cursor:pointer}
+ul{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
+.x{border:0;background:none;color:var(--muted);font-size:16px;cursor:pointer;padding:4px 8px}
+.hit{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.hit span{color:var(--muted);font-size:14px}
+.hit .go{padding:8px 12px;font-size:15px;flex:none}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+#timer{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:6;display:none;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:18px;background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(108,77,246,.35)}
+#timer.on{display:flex}
+#timer b{font:700 40px "Barlow Condensed",sans-serif}
+#timer button{background:#fff;color:#6C4DF6;border:0;border-radius:12px;padding:10px 16px;font:600 17px Barlow,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero"><div class="logo">BBB</div><div><h1>Build Beautiful Body</h1><p>Масса, осанка и питание в одном месте</p></div></header>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="days" id="days"></div>
+  <section id="view"></section>
+</main>
+<div id="timer" role="status"><span>Отдых</span><b id="t">75</b><button id="skip">Пропустить</button></div>
+<script>
+var DN=["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
+var PLAN={
+0:{n:"Грудь, плечи, руки",e:[["Отжимания","3 × 10","Ты делаешь 15, значит 10 даются легко. Спина ровная"],["Пуловер с гантелью 16 кг","3 × 10","Лёжа на полу, держи двумя руками, симметрично"],["Подъём рук в стороны, 3 кг","3 × 12","Без рывков, плечи вниз"],["Сгибание рук, 3 кг","3 × 12","Локти прижаты"],["Обратные отжимания от стула","3 × 8","Спина близко к стулу"]]},
+2:{n:"Ноги и ягодицы",e:[["Присед","3 × 12","Первые 2 недели без веса, потом с гантелью 16 кг у груди"],["Ягодичный мостик","3 × 15","Тазом вверх, сожми ягодицы"],["Выпады на месте, 3 кг в руках","3 × 8 на ногу","Поровну на обе ноги"],["Подъём на носки","3 × 15","Медленно вниз"],["Планка","3 × 20 сек","Корпус прямой, без прогиба"]]},
+4:{n:"Спина и турник",e:[["Подтягивания","4 × 3","Ты делаешь 5, оставляем запас. Плавно, без раскачки"],["Тяга гантели 16 кг, упор рукой на стул","3 × 8 на сторону","Ровно столько же на каждую сторону"],["Разведение рук лёжа на животе, 3 кг","3 × 12","Лопатки сводим"],["Супермен","3 × 10","Задержка 2 сек"],["Вис на турнике","3 × 20 сек","Расслабь плечи, тянись вверх"]]}
+};
+var SC=[["ЛФК от врача","1 × как показал врач","Делай так, как показали в кабинете ЛФК, столько раз, сколько назначено"],["Кошка и верблюд","2 × 10","Медленно, на четвереньках"],["Птица-собака","2 × 8 на сторону","Поровну на обе стороны"],["Боковая планка","2 × 15 сек на сторону","Не наклоняй таз, держи линию"],["Супермен","2 × 10","Задержка 2 сек вверху"],["Вис на турнике","2 × 20 сек","Свободный вис, без рывков"],["Стойка у стены","1 × 60 сек","Пятки, таз, лопатки и затылок касаются стены"],["Дыхание животом лёжа","1 × 10 вдохов","Руки на животе, вдох на 4 счёта"]];
+var MEALS=[["Завтрак","около 980 ккал, белка около 37 г","4 яйца, стакан молока с какао, банан, 3 ломтика хлеба со сливочным маслом"],["Обед","около 1000 ккал, белка около 30 г","Плов, тарелка 400 г с мясом, салат с маслом, стакан кефира или айрана. Если обед другой: гарнир (рис, гречка, макароны или картошка) + мясо или рыба 150–200 г + овощи с маслом + молочное"],["Ужин","около 950 ккал, белка около 40 г","Картошка или макароны 300 г готовых (350) + мясо или рыба 150 г (300) + 2 ломтика хлеба с маслом (200) + стакан кефира (100)"],["Добавка к приёмам","около 300 ккал","Стакан молока, горсть орехов или бутерброд с арахисовой пастой. Добавь к любому приёму"]];
+var LUNCH=[["Обед: плов","около 950 ккал, белка около 25 г","Плов 400 г с мясом (800) + салат из помидоров и огурцов (40) + банан (100)"],["Обед: блинчики с мясом","около 680 ккал, белка около 30 г","2 блинчика с мясом (450) + банан (100) + курт 40 г (130)"],["Обед: самса","около 800 ккал, белка около 28 г","2 самсы с мясом (700) + банан (100)"],["Обед: плов","около 950 ккал, белка около 25 г","Плов 400 г с мясом (800) + салат из помидоров и огурцов (40) + банан (100)"],["Обед: лагман","около 1000 ккал, белка около 30 г","Лагман 500 г (650) + 2 ломтика хлеба (150) + салат с маслом (100) + стакан айрана (100)"],["Обед: спагетти","около 880 ккал, белка около 38 г","Спагетти 120 г сухих (420) + фарш или курица 100 г в соусе (200) + сливочное масло (60) + стакан кефира (100) + банан (100)"],["Обед: макароны с курицей","около 1000 ккал, белка около 45 г","Макароны (100 г сухих) (350) + курица 200 г (330) + масло или соус (100) + салат (100) + стакан кефира (100)"]];
+var DIN={1:["Ужин (плюс калории)","около 1270 ккал, белка около 45 г","Картошка или макароны 300 г готовых (350) + мясо или рыба 150 г (300) + 2 ломтика хлеба с маслом (200) + стакан кефира (100) + стакан молока с какао (170) + горсть орехов (150)"],2:["Ужин (плюс калории)","около 1170 ккал, белка около 42 г","Картошка или макароны 300 г готовых (350) + мясо или рыба 150 г (300) + 2 ломтика хлеба с маслом (200) + стакан кефира (100) + стакан молока (120) + банан (100)"]};
+var now=new Date(),wd=(now.getDay()+6)%7,sel=wd,tab="w",KEY="homegym-v2",S={done:{},w:[]},tick=null;
+try{S=JSON.parse(localStorage.getItem(KEY))||S}catch(e){}
+if(!S.done)S.done={};if(!S.w)S.w=[];if(!S.log)S.log={};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function ds(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function dayKey(i){var d=new Date();d.setDate(d.getDate()+i-wd);return ds(d)}
+function nSets(s){return parseInt(s,10)}
+function block(list,pre,rest){var h="",tot=0,c=0;
+  list.forEach(function(x,ei){var n=nSets(x[1]);h+='<div class="ex">'+pic(x[0])+'<h3>'+x[0]+'</h3><p><span class="chip">'+x[1]+'</span>'+x[2]+'</p><div class="sets">';
+    for(var s=0;s<n;s++){var k=pre+"-"+ei+"-"+s,on=!!S.done[k];tot++;if(on)c++;h+='<button data-k="'+k+'" data-r="'+rest+'" aria-pressed="'+on+'" aria-label="Подход '+(s+1)+'">'+(s+1)+'</button>'}
+    h+='</div></div>'});
+  return '<div class="bar"><i style="width:'+(tot?c/tot*100:0)+'%"></i></div>'+h}
+function workout(){var p=PLAN[sel];
+  if(!p)return '<h2>День отдыха</h2><div class="note">Мышцы растут именно в отдых. Сделай 10 минут гимнастики на вкладке «Спина», погуляй и поешь по плану.</div>';
+  return '<h2>'+p.n+'</h2><div class="warn">Разминка 5 минут: круги руками, наклоны, приседы без веса. Нагрузка лёгкая, цель закрепить технику. Каждые 2 недели добавляй 1 повторение или 1 подход.</div>'+block(p.e,dayKey(sel),75)}
+function spine(){return '<h2>Спина</h2><div class="warn">Это общая гимнастика для спины. Точный комплекс при сколиозе 2 степени назначает ортопед или врач ЛФК. Покажи ему этот список. Любая боль значит стоп.</div>'+block(SC,"s-"+dayKey(wd),30)}
+function food(){var dk="m-"+dayKey(wd),h=tracker()+'<h2 style="margin-top:22px">Питание</h2><div class="note"><b>Ориентир: около 3000 ккал и 100 г белка в день.</b> Это расчёт на твой рост, вес и активность, он приблизительный. Цель: плюс 0,25–0,5 кг в неделю. Если вес не растёт 2 недели, добавь ещё одну добавку.<ul><li>Вода: 2 литра в день</li><li>Сон: 8–9 часов, иначе мышцы не растут</li><li>Не пропускай завтрак</li></ul></div>';
+  MEALS.forEach(function(m0,i){var m=i===1?LUNCH[wd]:i===2&&DIN[wd]?DIN[wd]:m0;var k=dk+"-"+i,on=!!S.done[k];h+='<div class="ex"><h3>'+m[0]+'</h3><p>'+m[1]+'. '+m[2]+'</p><button class="eat" data-k="'+k+'" data-r="0" aria-pressed="'+on+'">'+(on?'Съел':'Отметить как съеденное')+'</button></div>'});
+  h+='<h2 style="margin-top:22px">Вес</h2><div class="row"><input id="wv" type="number" step="0.1" min="30" max="200" placeholder="Например 53.5" aria-label="Вес в кг"><button class="go" id="wsave">Записать</button></div>';
+  var l=S.w.slice(-8).reverse();
+  if(!l.length)h+='<div class="note">Взвешивайся раз в неделю утром, натощак. Запиши вес сейчас, это будет точка старта.</div>';
+  else{h+='<div class="ex"><ul>';l.forEach(function(r,i){var prev=l[i+1],d=prev?(r.v-prev.v):0;h+='<li>'+r.d+': '+r.v+' кг'+(prev?' ('+(d>=0?'+':'')+d.toFixed(1)+')':'')+'</li>'});h+='</ul></div>'}
+  return h}
+var FOODS=[["Помидор",20,0.9],["Огурец",15,0.8],["Морковь",35,1.3],["Капуста",27,1.8],["Лук",41,1.4],["Болгарский перец",27,1.3],["Баклажан",24,1.2],["Тыква",26,1],["Свёкла варёная",49,1.8],["Картошка варёная",85,2],["Картофельное пюре с маслом",110,2],["Картошка жареная",190,3],["Картошка фри",310,3.5],
+["Банан",96,1.5],["Яблоко",52,0.3],["Груша",57,0.4],["Апельсин",43,0.9],["Мандарин",38,0.8],["Виноград",69,0.7],["Арбуз",30,0.6],["Дыня",33,0.8],["Хурма",67,0.5],["Курага",241,3.4],["Изюм",299,3],["Финики",277,1.8],
+["Куриная грудка варёная",140,29],["Курица жареная",220,26],["Говядина варёная",250,26],["Баранина варёная",290,25],["Фарш жареный",250,22],["Колбаса варёная",250,11],["Сосиски",260,10],["Рыба варёная (треска, минтай)",105,22],["Лосось",200,20],["Тунец консервированный",116,26],["Яйцо",155,13],["Печень говяжья тушёная",150,20],
+["Молоко",60,3],["Молоко с какао",80,3.5],["Кефир",53,3],["Айран",40,2],["Йогурт натуральный",60,4.3],["Творог 5%",120,17],["Творог 9%",160,16],["Сметана 20%",205,2.8],["Сыр твёрдый",360,25],["Брынза",260,18],["Курт",325,37],["Сливочное масло",750,0.5],["Сгущёнка",320,7],["Мороженое",200,3.5],
+["Рис варёный",130,2.7],["Гречка варёная",110,4],["Овсянка на воде",70,2.5],["Овсяные хлопья сухие",360,12],["Макароны и спагетти варёные",140,5],["Хлеб белый",250,8],["Хлеб ржаной",215,6.5],["Лепёшка (нон)",270,8],
+["Плов",200,6],["Лагман",130,5],["Самса",250,8],["Блинчики с мясом",200,9],["Манты",190,9],["Шурпа",70,4],["Борщ",50,2.5],["Мастава",75,3.5],["Пельмени",250,12],["Пицца",270,11],["Бургер",250,13],["Шаурма",230,11],
+["Шоколад молочный",540,7],["Печенье",450,7],["Торт",400,5],["Конфеты",480,4],["Мёд",330,0.8],["Сахар",400,0],["Арахис",580,26],["Арахисовая паста",590,25],["Грецкий орех",650,15],["Миндаль",600,21],["Семечки подсолнечника",580,21],["Чипсы",540,6],
+["Кола",42,0],["Яблочный сок",46,0.4],["Подсолнечное масло",900,0],["Оливковое масло",900,0]];
+var GK=3000,GP=100;
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function r1(x){return Math.round(x*10)/10}
+function norm(s){return s.toLowerCase().replace(/ё/g,"е")}
+function find(q){q=norm(q.trim());if(!q)return[];
+ var r=FOODS.filter(function(f){return norm(f[0]).indexOf(q)>-1});
+ if(!r.length&&q.length>=4){var t=q.slice(0,Math.max(3,q.length-2));r=FOODS.filter(function(f){return norm(f[0]).indexOf(t)>-1})}
+ return r.slice(0,6)}
+function logList(){return S.log[ds(now)]||[]}
+function addLog(n,g,k,p){var d=ds(now);if(!S.log[d])S.log[d]=[];S.log[d].push({n:n,g:g,k:k,p:p});save();render()}
+function showRes(){var q=document.getElementById("fq").value,g=parseFloat(document.getElementById("fg").value)||0,box=document.getElementById("fres"),h="";
+ find(q).forEach(function(f){var i=FOODS.indexOf(f);h+='<div class="hit"><div><b>'+f[0]+'</b><br><span>На 100 г: '+f[1]+' ккал, '+f[2]+' г белка</span><br><span>На '+g+' г: <b>'+Math.round(f[1]*g/100)+' ккал, '+r1(f[2]*g/100)+' г белка</b></span></div><button class="go" data-a="'+i+'">Добавить</button></div>'});
+ if(!h&&q.trim())h='<div class="note">Такого продукта нет в списке. Напиши мне, и я добавлю.</div>';
+ box.innerHTML=h;
+ box.querySelectorAll("[data-a]").forEach(function(b){b.onclick=function(){var f=FOODS[+b.dataset.a],gg=parseFloat(document.getElementById("fg").value);if(!(gg>0))return;addLog(f[0],gg,Math.round(f[1]*gg/100),r1(f[2]*gg/100))}})}
+function tracker(){var l=logList(),k=0,p=0;l.forEach(function(x){k+=x.k;p+=x.p});k=Math.round(k);p=r1(p);
+ var v=!l.length?"Добавь первую еду, и я покажу, хватает ли её.":(k>GK*1.2?"Калорий больше нормы":k>=GK*0.9?"Калории в норме":"До нормы не хватает "+(GK-k)+" ккал")+(p>=GP?", белка достаточно.":", белка не хватает "+r1(GP-p)+" г.");
+ var h='<div class="ex trk"><h3>Проверь свою еду</h3><p>Напиши продукт и граммы, я покажу калории и белок.</p>';
+ h+='<div class="row"><input id="fq" placeholder="Например: помидор" autocomplete="off" aria-label="Продукт"><input id="fg" type="number" min="1" value="100" aria-label="Граммы" style="max-width:90px"></div>';
+ h+='<p>Подсказка: 1 яйцо около 55 г, банан около 120 г, ломтик хлеба около 30 г, стакан около 250 г.</p><div id="fres"></div>';
+ h+='<h3 style="margin-top:16px">Съедено сегодня</h3><p>Калории: <b>'+k+'</b> из '+GK+'</p><div class="bar"><i style="width:'+Math.min(100,k/GK*100)+'%"></i></div>';
+ h+='<p>Белок: <b>'+p+'</b> из '+GP+' г</p><div class="bar"><i style="width:'+Math.min(100,p/GP*100)+'%"></i></div><p><b>'+v+'</b></p><ul>';
+ l.forEach(function(x,i){h+='<li>'+esc(x.n)+(x.g?' '+x.g+' г':'')+': '+x.k+' ккал, '+x.p+' г белка <button class="x" data-x="'+i+'" aria-label="Удалить">✕</button></li>'});
+ return h+'</ul></div>'}
+function bindTracker(){var q=document.getElementById("fq"),g=document.getElementById("fg");
+ if(q){q.oninput=showRes;g.oninput=showRes}
+ document.querySelectorAll("[data-x]").forEach(function(b){b.onclick=function(){logList().splice(+b.dataset.x,1);save();render()}})}
+var PIC={
+push:{p:["M30 98L150 62L150 100"],h:[164,57]},
+pull:{p:["M40 94H105L135 66L160 94","M42 94L44 52"],h:[28,92],x:'<path class="eq" d="M34 50H54"/>'},
+lat:{p:["M110 36V72","M110 72L98 104","M110 72L122 104","M72 38H148"],h:[110,24],x:'<path class="eq" d="M72 30V46M148 30V46"/>'},
+curl:{p:["M110 34V72","M110 72L98 104","M110 72L122 104","M104 38L98 58V38","M116 38L122 58V38"],h:[110,22],x:'<path class="eq" d="M90 38H106M114 38H130"/>'},
+dip:{p:["M58 68L62 56L68 44","M68 44L84 80L126 86L166 102"],h:[66,32],x:'<path class="fx" d="M24 70H66M30 70V104M60 70V104"/>'},
+squat:{p:["M100 102L116 78L84 80L104 48L136 50"],h:[110,38]},
+bridge:{p:["M38 94L122 58L140 102","M38 94L72 96"],h:[26,92]},
+lunge:{p:["M100 36V72","M100 72L128 74V104","M100 72L84 98L62 104","M104 38L106 66"],h:[100,24],x:'<path class="eq" d="M98 68H114"/>'},
+calf:{p:["M104 34V96L118 104","M110 38L112 62"],h:[104,22],x:'<path class="ar" d="M84 88V66M78 72L84 66L90 72" fill="none"/>'},
+plank:{p:["M30 98L150 66V98H182"],h:[162,60]},
+pullup:{p:["M88 26L82 46L102 38","M132 26L138 46L118 38","M110 32V70","M110 70L104 102","M110 70L116 102"],h:[110,18],n:1,x:'<path class="fx" d="M50 26H170"/><path class="ar" d="M190 70V44M184 50L190 44L196 50"/>'},
+row:{p:["M66 60L72 82L64 102","M66 60L118 56L146 70","M118 56L112 74"],h:[132,50],x:'<path class="fx" d="M138 72H190M142 72V104M186 72V104"/><path class="eq" d="M104 78H120"/>'},
+fly:{p:["M20 98L60 94L140 92","M140 92L142 64"],h:[158,86],x:'<path class="eq" d="M134 62H150"/>'},
+super:{p:["M18 76L66 94L128 94L176 72"],h:[146,74]},
+hang:{p:["M92 14L100 46","M128 14L120 46","M100 46H120","M110 46V82","M110 82L104 114","M110 82L116 114"],h:[110,34],n:1,x:'<path class="fx" d="M50 14H170"/>'},
+cat:{p:["M70 72V102H44","M70 72Q106 34 140 72V102"],h:[154,84]},
+bird:{p:["M70 66H130","M130 66V102","M70 66V102H46","M70 66L14 60","M130 66L186 60"],h:[142,54]},
+side:{p:["M40 102L150 56V102H174","M148 60L124 68"],h:[164,42]},
+wall:{p:["M66 38V100L82 104","M70 40L72 72"],h:[68,24],x:'<path class="fx" d="M58 6V108"/><circle class="pt" cx="58" cy="24" r="3.5"/><circle class="pt" cx="58" cy="46" r="3.5"/><circle class="pt" cx="58" cy="74" r="3.5"/><circle class="pt" cx="58" cy="100" r="3.5"/>'},
+breath:{p:["M40 94H105L135 68L158 94","M46 94L60 86L88 88"],h:[26,92],x:'<path class="ar" d="M80 78Q92 66 104 78"/>'},
+lfk:{p:[],n:1,x:'<path class="ar" d="M110 10C70 30 150 50 110 70S70 98 110 112" stroke-width="5"/><circle class="pt" cx="100" cy="22" r="5"/><circle class="pt" cx="110" cy="40" r="5"/><circle class="pt" cx="112" cy="58" r="5"/><circle class="pt" cx="104" cy="78" r="5"/><circle class="pt" cx="100" cy="98" r="5"/>'}};
+var PM={"Отжимания":"push","Пуловер с гантелью 16 кг":"pull","Подъём рук в стороны, 3 кг":"lat","Сгибание рук, 3 кг":"curl","Обратные отжимания от стула":"dip","Присед":"squat","Ягодичный мостик":"bridge","Выпады на месте, 3 кг в руках":"lunge","Подъём на носки":"calf","Планка":"plank","Подтягивания":"pullup","Тяга гантели 16 кг, упор рукой на стул":"row","Разведение рук лёжа на животе, 3 кг":"fly","Супермен":"super","Вис на турнике":"hang","ЛФК от врача":"lfk","Кошка и верблюд":"cat","Птица-собака":"bird","Боковая планка":"side","Стойка у стены":"wall","Дыхание животом лёжа":"breath"};
+function pic(name){var d=PIC[PM[name]];if(!d)return"";
+ var h='<div class="pic"><svg viewBox="0 0 220 120" role="img" aria-label="Схема упражнения: '+name+'"><g fill="none" stroke-linecap="round" stroke-linejoin="round">';
+ if(!d.n)h+='<path class="fl" d="M8 104H212"/>';
+ d.p.forEach(function(x){h+='<path class="bd" d="'+x+'"/>'});
+ if(d.h)h+='<circle class="hd" cx="'+d.h[0]+'" cy="'+d.h[1]+'" r="8"/>';
+ return h+(d.x||"")+'</g></svg></div>'}
+function render(){
+  var t=document.getElementById("tabs");t.innerHTML="";
+  [["w","Тренировки"],["s","Спина"],["n","Питание"]].forEach(function(x){var b=document.createElement("button");b.textContent=x[1];b.setAttribute("role","tab");b.setAttribute("aria-selected",tab===x[0]);b.onclick=function(){tab=x[0];render()};t.appendChild(b)});
+  var d=document.getElementById("days");d.innerHTML="";d.style.display=tab==="w"?"flex":"none";
+  DN.forEach(function(n,i){var b=document.createElement("button");b.textContent=n;b.setAttribute("aria-selected",i===sel);if(!PLAN[i])b.className="rest";b.onclick=function(){sel=i;render()};d.appendChild(b)});
+  var v=document.getElementById("view");v.innerHTML=tab==="w"?workout():tab==="s"?spine():food();
+  v.querySelectorAll("[data-k]").forEach(function(b){b.onclick=function(){var k=b.dataset.k,r=+b.dataset.r;if(S.done[k])delete S.done[k];else{S.done[k]=1;if(r)rest(r)}save();render()}});
+  bindTracker();var ws=document.getElementById("wsave");if(ws)ws.onclick=function(){var v=parseFloat(document.getElementById("wv").value);if(!(v>=30&&v<=200))return;S.w.push({d:now.toLocaleDateString("ru-RU"),v:v});save();render()}}
+function rest(sec){clearInterval(tick);var e=document.getElementById("timer"),t=document.getElementById("t");e.className="on";t.textContent=sec;tick=setInterval(function(){sec--;t.textContent=sec;if(sec<=0){stop();if(navigator.vibrate)navigator.vibrate(300)}},1000)}
+function stop(){clearInterval(tick);document.getElementById("timer").className=""}
+document.getElementById("skip").onclick=stop;
+render();
+</script>
+</body>
+</html>
